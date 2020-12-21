@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Name from './Name.js';
+import Price from './Price.js';
+import Description from './Description.js';
 
 class Product extends Component {
     render() {
@@ -12,18 +15,5 @@ class Product extends Component {
     }
 }
 
-const Name = (props) => {
-    return <p>{props.name}</p>;
-};
-
-function Price(props) {
-    return <p>{props.price}</p>
-}
-
-class Description extends Component {
-    render() {
-        return <p>{this.props.description}</p>
-    }
-}
 
 export default Product;
