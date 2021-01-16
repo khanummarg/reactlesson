@@ -1,0 +1,87 @@
+import React, {Component} from 'react';
+import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import idGenerator from '../../helpers/idGenerator';
+import PropTypes from 'prop-types'; 
+
+class NewTask extends Component{
+    state = {
+        title: '',
+        description: ''
+    };
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name] : event.target.value
+        });
+    };
+
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            // this.addTask();
+            this.handleSubmit();
+        }
+    };
+
+    handleSubmit = ()=>{
+        const title = this.state.title.trim();
+        const description = this.state.description.trim();
+
+        if (!title) {
+            return;
+        }
+
+        const newTask = {
+            _id: idGenerator(),
+            title,
+            description
+        };
+
+        this.props.onAdd(newTask);
+        this.setState({
+            title: '',
+            description: ''
+        });
+    };
+
+    render(){
+        const {title, description} = this.state;
+        const {disabled} = this.props;
+
+        return(
+            <InputGroup className="mb-3">
+            <FormControl
+                placeholder="Title"
+                value={title}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                disabled={disabled}
+                name="title"
+            />
+            <FormControl
+                placeholder="Description"
+                value={description}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                disabled={disabled}
+                name="description"
+            />
+            <InputGroup.Append>
+                <Button
+                    variant="outline-primary"
+                    onClick={this.handleSubmit}
+                    disabled={disabled}
+                >
+                    Add
+                </Button>
+            </InputGroup.Append>
+        </InputGroup>
+        );
+    }
+}
+
+NewTask.propTypes = {
+    onAdd: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired
+};
+
+export default NewTask;

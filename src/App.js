@@ -1,61 +1,63 @@
 // import logo from './logo.svg';
 import './App.css';
-import Product from './Product.js'
-import Todo from './homework-8/Todo.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import Product from './Product.js'
+// import Todo from './homework-8/Todo.js';
+import ToDo from './components/ToDo/ToDo.js'
 
-function Greeting(props) {
-  return (
-    <div>
-      <h1>Hello {props.name}</h1>
-    </div>
-  );
-}
+// function Greeting(props) {
+//   return (
+//     <div>
+//       <h1>Hello {props.name}</h1>
+//     </div>
+//   );
+// }
 
-function User(props) {
-  // console.log('props', props);
-  return (
-    <h2>My name is {props.name} and I am {props.age}.</h2>
-  )
-}
-const fruits = [
-  {
-    name: 'apple',
-    price: '2$',
-    desc: 'Aples from Armenia',
-    icon: '🍏'
-  },
-  {
-    name: 'banana',
-    price: '2.2$',
-    desc: 'Fresh bananas from from Ecuador',
-    icon: '🍌'
-  },
-  {
-    name: 'lemons',
-    price: '3$',
-    desc: 'Golden lemons',
-    icon: '🍋'
-  },
-  {
-    name: 'avocado',
-    price: '4$',
-    desc: 'Fresh avocados',
-    icon: '🥑'
-  },
-];
+// function User(props) {
+//   // console.log('props', props);
+//   return (
+//     <h2>My name is {props.name} and I am {props.age}.</h2>
+//   )
+// }
+// const fruits = [
+//   {
+//     name: 'apple',
+//     price: '2$',
+//     desc: 'Aples from Armenia',
+//     icon: '🍏'
+//   },
+//   {
+//     name: 'banana',
+//     price: '2.2$',
+//     desc: 'Fresh bananas from from Ecuador',
+//     icon: '🍌'
+//   },
+//   {
+//     name: 'lemons',
+//     price: '3$',
+//     desc: 'Golden lemons',
+//     icon: '🍋'
+//   },
+//   {
+//     name: 'avocado',
+//     price: '4$',
+//     desc: 'Fresh avocados',
+//     icon: '🥑'
+//   },
+// ];
 
 function App() {
 
-  const li = fruits.map((fruit, index)=>{
-    return <li key={index}>
-    <Product
-      icon={fruit.icon}
-      name={fruit.name}
-      price={fruit.price}
-      description={fruit.desc}
-    />
-  </li>    
-  })
+  // const li = fruits.map((fruit, index)=>{
+  //   return <li key={index}>
+  //   <Product
+  //     icon={fruit.icon}
+  //     name={fruit.name}
+  //     price={fruit.price}
+  //     description={fruit.desc}
+  //   />
+  // </li>    
+  // })
 
   return (
     <div>
@@ -73,22 +75,28 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Greeting name="John" />
+      {/* <Greeting name="John" />
       <Greeting name="Helen" />
       <User
         name="Michael"
         age={35}
-      />
+      /> */}
       {/* <Product
         name="Bananas"
         price={`1$`}
         description="Fresh bananas from Ecuador"
       /> */}
-      <ol>
+      {/* <ol>
         {li}
       </ol>
 
-      <Todo />
+      <Todo /> */}
+
+
+
+
+
+      <ToDo />
     </div>
   );
 }
