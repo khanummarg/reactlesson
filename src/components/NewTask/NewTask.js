@@ -11,13 +11,14 @@ class NewTask extends Component{
 
     handleChange = (event) => {
         this.setState({
-            title: event.target.value
+            [event.target.name] : event.target.value
         });
     };
 
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
             // this.addTask();
+            this.handleSubmit();
         }
     };
 
@@ -54,6 +55,15 @@ class NewTask extends Component{
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown}
                 disabled={disabled}
+                name="title"
+            />
+            <FormControl
+                placeholder="Description"
+                value={description}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                disabled={disabled}
+                name="description"
             />
             <InputGroup.Append>
                 <Button

@@ -39,8 +39,8 @@ const {selected} = this.state;
             />
             <Card.Title>{task.title}</Card.Title>
             <Card.Text>
-                Some quick example text to build on the card title and
-  </Card.Text>
+               {task.description}
+            </Card.Text>
             <Button
                 variant="danger"
                 disabled={disabled}
