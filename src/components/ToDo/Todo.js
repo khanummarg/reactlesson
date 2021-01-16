@@ -1,41 +1,24 @@
-
 import React, { Component } from 'react';
-import styles from './todo.module.css';
-import { Container, Row, Col, Card, Button, FormControl, InputGroup } from 'react-bootstrap';
-import idGenerator from '../../helpers/idGenerator';
+// import styles from './todo.module.css';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import Task from '../Task/Task';
+import NewTask from '../NewTask/NewTask';
+import Confirm from '../Confirm';
 
 class ToDo extends Component {
     state = {
-        inputValue: '',
         tasks: [],
-        selectedTasks: new Set()
+        selectedTasks: new Set(),
+        showConfirm: false
     };
 
-    handleChange = (event) => {
-        this.setState({
-            inputValue: event.target.value
-        });
-    };
-
-    addTask = () => {
-        const inputValue = this.state.inputValue.trim();
-
-        if (!inputValue) {
-            return;
-        }
-
-        const newTask = {
-            _id: idGenerator(),
-            title: inputValue
-        };
 
 
+    addTask = (newTask) => {
         const tasks = [...this.state.tasks, newTask];
 
-
         this.setState({
-            tasks,
-            inputValue: ''
+            tasks
         });
     };
 
@@ -44,7 +27,6 @@ class ToDo extends Component {
 
         this.setState({
             tasks: newTasks
-
         });
     };
 
@@ -75,20 +57,22 @@ class ToDo extends Component {
 
         this.setState({
             tasks: newTasks,
-            selectedTasks: new Set()
+            selectedTasks: new Set(),
+            showConfirm: false
         });
 
     };
 
-    handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            this.addTask();
-        }
+    toggleConfirm = ()=>{
+        this.setState({
+            showConfirm: !this.state.showConfirm
+        });
     };
 
+
     render() {
-        console.log('render');
-        const { tasks, inputValue, selectedTasks } = this.state;
+
+        const { tasks, selectedTasks, showConfirm } = this.state;
 
         const taskComponents = tasks.map((task) => {
 
@@ -101,29 +85,12 @@ class ToDo extends Component {
                     lg={3}
                     xl={2}
                 >
-
-                    <Card className={styles.task}>
-
-                        <Card.Body>
-                            <input
-                                type="checkbox"
-                                onChange={() => this.toggleTask(task._id)}
-                            />
-                            <Card.Title>{task.title}</Card.Title>
-                                <Card.Text>
-                                    Some quick example text to build on the card title and
-                                </Card.Text>
-                            <Button
-                                variant="danger"
-                                disabled={!!selectedTasks.size}
-                                onClick={() => this.deleteTask(task._id)}
-                            >
-                                Delete
-                  </Button>
-                        </Card.Body>
-                    </Card>
-
-
+                    <Task 
+                    data={task}
+                    onToggle = {this.toggleTask}
+                    disabled = {!!selectedTasks.size}
+                    onDelete = {this.deleteTask}
+                    />
                 </Col>
             )
         });
@@ -131,37 +98,20 @@ class ToDo extends Component {
         return (
             <div>
                 <h2>ToDo List</h2>
-
-
-
                 <Container>
                     <Row className="justify-content-center">
                         <Col xs={10}>
-                            <InputGroup className="mb-3">
-                                <FormControl
-                                    placeholder="Input your task"
-                                    value={inputValue}
-                                    onChange={this.handleChange}
-                                    onKeyDown={this.handleKeyDown}
-                                    disabled={!!selectedTasks.size}
-                                />
-                                <InputGroup.Append>
-                                    <Button
-                                        variant="outline-primary"
-                                        onClick={this.addTask}
-                                        disabled={!!selectedTasks.size}
-                                    >
-                                        Add
-                                    </Button>
-                                </InputGroup.Append>
-                            </InputGroup>
+                        <NewTask 
+                        disabled = {!!selectedTasks.size}
+                        onAdd = {this.addTask}
+                        />
                         </Col>
                     </Row>
 
                     <Row>
                         <Button
                             variant="danger"
-                            onClick={this.removeSelected}
+                            onClick={this.toggleConfirm}
                             disabled={!selectedTasks.size}
                         >
                             Delete selected
@@ -173,6 +123,14 @@ class ToDo extends Component {
                         {taskComponents}
                     </Row>
                 </Container>
+
+               {showConfirm && 
+                <Confirm 
+                onClose ={this.toggleConfirm}
+                onConfirm ={this.removeSelected}
+                count={selectedTasks.size}
+                />
+            } 
             </div>
         );
     }
