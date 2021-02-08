@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Product from './Product.js'
 // import Todo from './homework-8/Todo.js';
-import ToDo from './components/ToDo/ToDo.js'
+import ToDo from './components/ToDo/Todo.js'
 
 // function Greeting(props) {
 //   return (
